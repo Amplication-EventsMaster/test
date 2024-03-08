@@ -10,10 +10,11 @@ https://docs.amplication.com/how-to/custom-code
 ------------------------------------------------------------------------------
   */
 import { PrismaService } from "../../prisma/prisma.service";
+
 import {
   Prisma,
-  Customer as PrismaCustomer,
-  Event as PrismaEvent,
+  Customer, // @ts-ignore
+  Event,
 } from "@prisma/client";
 
 export class CustomerServiceBase {
@@ -27,34 +28,34 @@ export class CustomerServiceBase {
 
   async customers<T extends Prisma.CustomerFindManyArgs>(
     args: Prisma.SelectSubset<T, Prisma.CustomerFindManyArgs>
-  ): Promise<PrismaCustomer[]> {
+  ): Promise<Customer[]> {
     return this.prisma.customer.findMany(args);
   }
   async customer<T extends Prisma.CustomerFindUniqueArgs>(
     args: Prisma.SelectSubset<T, Prisma.CustomerFindUniqueArgs>
-  ): Promise<PrismaCustomer | null> {
+  ): Promise<Customer | null> {
     return this.prisma.customer.findUnique(args);
   }
   async createCustomer<T extends Prisma.CustomerCreateArgs>(
     args: Prisma.SelectSubset<T, Prisma.CustomerCreateArgs>
-  ): Promise<PrismaCustomer> {
+  ): Promise<Customer> {
     return this.prisma.customer.create<T>(args);
   }
   async updateCustomer<T extends Prisma.CustomerUpdateArgs>(
     args: Prisma.SelectSubset<T, Prisma.CustomerUpdateArgs>
-  ): Promise<PrismaCustomer> {
+  ): Promise<Customer> {
     return this.prisma.customer.update<T>(args);
   }
   async deleteCustomer<T extends Prisma.CustomerDeleteArgs>(
     args: Prisma.SelectSubset<T, Prisma.CustomerDeleteArgs>
-  ): Promise<PrismaCustomer> {
+  ): Promise<Customer> {
     return this.prisma.customer.delete(args);
   }
 
   async findEvents(
     parentId: string,
     args: Prisma.EventFindManyArgs
-  ): Promise<PrismaEvent[]> {
+  ): Promise<Event[]> {
     return this.prisma.customer
       .findUniqueOrThrow({
         where: { id: parentId },
